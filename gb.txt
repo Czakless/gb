@@ -1,0 +1,30 @@
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Podaj imię: ");
+        String name = sc.nextLine();
+        System.out.println("Podaj nazwisko: ");
+        String last_name = sc.nextLine();
+        System.out.println("Podaj email: ");
+        String email = sc.nextLine();
+        System.out.println("Podaj hasło: ");
+        String password = sc.nextLine();
+
+        name = name.trim();
+        last_name = last_name.trim();
+        email = email.trim();
+        password = password.trim();
+
+        if(name.isEmpty() || last_name.isEmpty() || email.isEmpty() || password.isEmpty()){
+            System.out.println("Wypełnij wszystkie pola!");
+        } else if(!email.contains("@")){
+            System.out.println("Podaj poprawnie email!");
+        } else if (password.length() != 8 || password.matches(".*[0-9]*.") || password.matches(".*[a-z]*.") || password.matches(".*[!-)]*.")){
+            System.out.println("Hasło musi mieć co najmniej 8 znaków");
+        } else {
+            System.out.println("Dane są poprawne!");
+        }
+    }
+}
