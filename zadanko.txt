@@ -1,0 +1,75 @@
+def wyswietl_dane(dane):
+    print("\nLista uczniów:")
+    i = 1
+    for uczen in dane:
+        print(f"{i}. {uczen}")
+        i += 1
+
+
+def sortuj_dane(dane):
+    dane.sort()
+
+    with open("uczniowie.txt", "w", encoding="utf-8") as plik:
+        for uczen in dane:
+            plik.write(uczen + "\n")
+
+    print("Posortowano listę alfabetycznie")
+
+
+def usun_ucznia(dane):
+    wyswietl_dane(dane)
+
+    numer = int(input("Podaj numer ucznia do usunięcia: "))
+
+    if numer >= 1 and numer <= len(dane):
+        dane.pop(numer - 1)
+
+        with open("uczniowie.txt", "w", encoding="utf-8") as plik:
+            for uczen in dane:
+                plik.write(uczen + "\n")
+
+        print("Usunięto ucznia")
+    else:
+        print("Nieprawidłowy numer")
+
+
+def main():
+    try:
+        with open("uczniowie.txt", "r", encoding="utf-8") as plik:
+            dane = [linia.strip() for linia in plik]
+
+    except FileNotFoundError:
+        dane = []
+        print("Brak pliku uczniowie.txt. Utworzono pustą listę.")
+
+    while True:
+        print("\n--- MENU ---")
+        print("1. Wyświetl listę uczniów")
+        print("2. Posortuj listę alfabetycznie")
+        print("3. Usuń ucznia z listy")
+        print("4. Zakończ program")
+
+        wybor = input("Wybierz opcję: ")
+
+        if wybor == "1":
+            wyswietl_dane(dane)
+
+        elif wybor == "2":
+            sortuj_dane(dane)
+            wyswietl_dane(dane)
+
+        elif wybor == "3":
+            if len(dane) == 0:
+                print("Lista uczniów jest pusta")
+            else:
+                usun_ucznia(dane)
+
+        elif wybor == "4":
+            print("Koniec programu")
+            break
+
+        else:
+            print("Zły wybór!")
+
+
+main()
